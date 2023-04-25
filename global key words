@@ -1,0 +1,61 @@
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <0.9.0;
+
+contract HelloWorld {
+    //if there is no visibilty modifier, the default is "internal"
+            /*Global veriables
+        this = refers to this contract 
+        msg = refers to who forced this contract to start executing this function
+        block = information about the block that the transaction was sent to
+        tx = transaction, gives us the info about the transaction, origin
+        msg.data = data assosiated with the call to a function
+        msg.sig = gives you the first 4 bytes to a call data(funtion that is to be called
+        msg.value = How much etherium was sent to the smart contract. sending and recieving ether*/
+ 
+        //getting the balance of the contract
+        function getBalance() public view returns (uint) {
+            return address(this).balance;
+        }
+        //getting the address of the sender
+        function viewMsg() public view returns (address) {
+            return msg.sender;
+        }
+
+        address public myAddress = msg.sender;
+        //view blocks number
+        function viewBlockNumber() public view returns (uint){
+            return block.number;
+        }
+        //view blocks time stamp
+        function timeStamp() public view returns (uint) {
+            return block.timestamp;
+        }
+        //Who originated the transaction
+        function transactionOrigin() public view returns (address){
+            return tx.origin;
+        }
+        //Amount of gas is remaining of the gas limit set
+        function gas() public view returns (uint) {
+            return gasleft();
+        }
+
+    /* Block
+    block.chainid
+    block.number - block number
+    block.timestamp 
+    block.difficulty
+    block.coinbase - address of the miner who mined this block*/
+
+    function Dif() public view returns (uint){
+        return block.difficulty;
+    }
+
+    address public coin = block.coinbase;
+
+    uint b = 5;
+    
+    function Tx(uint a) public view returns(uint){
+        return a += b;
+    }
+        
+} 
