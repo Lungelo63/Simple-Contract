@@ -1,0 +1,36 @@
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <0.9.0;
+
+    /*Sending and recieving Ether
+        wei - smallest possible unit in Ether
+        gwei - second unit
+        ether - ether
+    There are other units but these are the main ones
+        */
+
+//receiving Ether
+/*If we don't have a recieve function the fallback function will handle a transact
+If we do have a recieve function the function will handle payment only if ther is no msg.data
+The pay() function comes with a red trunsact button to store payment in its function
+If the function is not payable and you send money to it, it will give an error
+ */
+contract HelloWorld {
+
+    uint public received;
+    uint public fallReceived;
+    uint public payReceived;
+
+    function pay() external payable {
+        payReceived += msg.value;
+    }
+    
+    receive() external payable {
+        received += msg.value;
+    }
+
+    fallback() external payable {
+        fallReceived += msg.value;
+    }
+
+    
+}
