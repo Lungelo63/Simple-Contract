@@ -1,0 +1,47 @@
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <0.9.0;
+
+    /*Sending and recieving Ether
+        wei - smallest possible unit in Ether
+        gwei - second unit
+        ether - ether
+    There are other units but these are the main ones
+        */
+
+/*      Sending ether
+
+*/
+contract HelloWorld {
+
+    function withdraw() public {
+        address payable user = payable(msg.sender);
+        
+        //send() returns a boolean value as to if the money got sent
+        //Downside - only gives you 2300 gas
+        bool sent = user.send(address(this).balance);
+        
+        //transfer does the same exect thing as send() except it does not return a value
+        //Downside - only gives you 2300 gas
+        user.transfer(address(this).balance);
+
+        //this is the prefered way of sending ether
+        //this allows you unlimited flexibility
+        user.call{value: address(this).balance}("");
+        
+    }
+    //this will send ether even if you don't have money. the function will work no matter what
+    //that's why a bool is added which will return false
+    function withdarw2() external {
+        (bool sent,) = payable(msg.sender).call{value: 1 ether}("");
+    }
+
+
+    receive() external payable {
+        
+    }
+
+    fallback() external payable {
+        
+    }
+    
+} 
