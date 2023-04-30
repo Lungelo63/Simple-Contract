@@ -1,0 +1,36 @@
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <0.9.0;
+    
+contract handling {
+    mapping(address => uint) balances;
+
+    function deposit() external payable {
+
+        balances[msg.sender] += msg.value;
+    }
+
+    function withdraw(uint amount) public {
+        uint balance = balances[msg.sender];
+        //require is used to check and valid date if parameters are true, if true the program will continue
+        //if false the state will revert. any remaining gas will be sent back
+        //require is use if you are checking arguments, preconditions etc...
+        require(balance >= amount, "balance is not sufficient");
+        balances[msg.sender] -= amount;
+        (bool sent, ) = payable(msg.sender).call{value: amount}("");
+        require(sent, "payment failed");
+
+        //assert is used to validate that what shpuld be the case is actually true
+        //assert should not fail.
+        //Validating that a smart contract is working the way it is suppose to work
+        //does not refund gas
+        //assert();
+
+        /* Gaurd clauses
+            require()
+            assert() = 
+            revert() = allows you to raise custom errors, refunds gas and reverts the contract to what is was */
+    
+    }    
+
+
+}
