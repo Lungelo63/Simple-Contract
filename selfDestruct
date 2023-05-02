@@ -1,0 +1,32 @@
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <0.9.0;
+
+contract selfDestruct {
+    //this function deletes the smart contract and sends whatever the balance of the contruct to whatever 
+    //address we palce in the parameters. this is a way to remove the smart contract from the blockchain
+    //to delete all of the state, esentially making this contruct unusable going forword.
+    //even thogh it deletes the smart contract it still keeps transaction history
+    //selfdestruct(address)
+
+    address owner;
+
+    constructor() {
+        owner = msg.sender;
+    }
+
+    receive() external payable {
+
+    }
+
+    function destroy() external {
+        require(owner == msg.sender, "you are not the owner");
+        selfdestruct(payable(owner));
+    }
+
+    //function to test if contract works after selfdestruct()
+
+    function getOwner() public view returns (address) {
+        return owner;
+    }
+
+}
