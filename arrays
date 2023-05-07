@@ -1,0 +1,44 @@
+// SPDX-License-Identifier: MIT
+pragma solidity >=0.7.0 <0.9.0;
+//storage array
+contract arrays {
+    uint[] public numbers = [1, 2];
+
+    function add(uint x) public {
+        //push only works on dynemically sized array (open array)
+        numbers.push(x);
+    }
+
+    function pop() public {
+        //removes the last number of the array 
+        numbers.pop();
+    }
+
+    function lenght() public view returns (uint){
+        //returns the length of an array 
+        return numbers.length;
+    }
+
+    function remove(uint indx) public {
+        //resets to the default value of said index
+        delete numbers[indx];
+    }
+
+}
+
+contract array{
+//memory array
+
+    function test(uint size) public pure returns (uint[] memory) {
+        uint[] memory number = new uint[](size);
+        return number;
+        
+    }
+//arrays are gas costly
+    function test() public pure returns (uint[3] memory, uint[3]  memory){
+        uint[3] memory numbers = [uint(1), 2, 3];
+        uint[3] memory numbers2 = numbers;
+        numbers2[1] = 0;
+        return (numbers, numbers2); 
+    }
+}
